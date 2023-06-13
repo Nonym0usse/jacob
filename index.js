@@ -25,6 +25,16 @@ app.use('/', indexRouter);
 app.use('/etage1', etage1);
 app.use('/etage5', etage5);
 
+app.use((req, res, next) => {
+  if (req.secure) {
+    // If the request is already using HTTPS, no need to redirect
+    next();
+  } else {
+    // Redirect HTTP requests to HTTPS
+    res.redirect(`https://${req.headers.host}${req.url}`);
+  }
+});
+
 app.get('/setLanguage/:lang', (req, res) => {
   const lang = req.params.lang;
   res.cookie('lang', lang); // Store selected language in a cookie
