@@ -1,7 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var emailService = require('../services/email.service');
+var multer = require('multer');
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Define the destination folder for file uploads
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // Use the original filename
+  },
+});
+
+const upload = multer({ storage: storage });
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -21,10 +32,15 @@ router.get('/validate/:email', function(req, res, next) {
   }
 });
 
-router.post('/apply-form', async (req, res, next) => {
+router.post('/apply-form', upload.array('files'), async (req, res, next) => {
   try{
 
-    emailService.sendEmail(req.body, 'fileUrls').then((data) => {
+    const attachments = req.files.map((file) => ({
+      filename: file.originalname,
+      path: file.path,
+    }));
+
+    emailService.sendEmail(req.body, attachments).then((data) => {
       res.render('candidature/apply', { title: 'Votre demande à été transmise!',  etage: req.body.etage, success: "OK", error: ""});
     }).catch((err) => res.render('candidature/apply', { title: 'Erreur!',  etage: req.body.etage, success : "", error: "ERR"}))
   }catch (error){
