@@ -1624,7 +1624,7 @@ a {
 .cid-tG89xnIEJU {
   padding-top: 6rem;
   padding-bottom: 6rem;
-  background-color: #ffffff;
+  background-color: rgba(99, 155, 158, 0.76);
 }
 .cid-tG89xnIEJU .mbr-fallback-image.disabled {
   display: none;
@@ -1644,7 +1644,7 @@ a {
   margin-bottom: 2rem;
 }
 .cid-tG89xnIEJU .icon-box {
-  background: #000000;
+  background: #FFFFFF;
   width: 60px;
   min-width: 60px;
   height: 60px;
@@ -1656,7 +1656,7 @@ a {
 }
 .cid-tG89xnIEJU .mbr-iconfont {
   font-size: 2rem;
-  color: #ffffff;
+  color: #000000;
 }
 @media (max-width: 991px) {
   .cid-tG89xnIEJU .card {
