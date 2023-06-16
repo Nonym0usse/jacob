@@ -9,6 +9,25 @@ async function sendEmail(data, files){
             },
         });
         const anchorTag = `<a href="https://colocservice.fr/validate/${data?.email}">ICI</a>`;
+        let stay = '';
+
+        switch (data?.stay){
+            case "indetermine":
+                stay = "Indeterminée";
+                break;
+            case "4":
+                stay = "4 à 6 mois";
+                break;
+            case "6":
+                stay = "+ 6 mois";
+                break;
+            case "12":
+                stay = "1 an";
+                break;
+            default:
+                stay = "Inconnu";
+                break;
+        }
 
         const mailBody = "<h4>Voici les informations du colocataire :</h4>" +
             "<p> Nom & Prénom : " + data?.name + "</p>" +
@@ -20,6 +39,7 @@ async function sendEmail(data, files){
             "<p> Téléphone : " + data?.phone + "</p>" +
             "<p> Nationalité : " + data?.nationality + "</p>" +
             "<p> Revenus : " + data?.income + "€</p>" +
+            "<p> Durée : " + stay + "</p>" +
             "<hr>"+
             "<h4>Garant locataire</h4>" +
             "<p> Nom & prénom : " + data?.guarantorname + "</p>" +
